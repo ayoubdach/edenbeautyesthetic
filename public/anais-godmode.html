@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anaïs — Beauté & Spa Tunisien | Hammam Traditionnel Ariana</title>
+<meta name="description" content="Anaïs Beauty & Spa à Ariana — Hammam rituel tunisien, soins naturels, épilation au sucre, massage détente. Réservez sur WhatsApp au +216 23 212 515.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --oud: #1E0A0D;
+  --wine: #3D1520;
+  --rouge: #7B2D3A;
+  --blush: #C4956A;
+  --gold: #B8962E;
+  --cream: #FAF6EE;
+  --sand: #EDE0CC;
+  --stone: #A89070;
+  --white: #FFFDF9;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-title: 'Cinzel', serif;
+  --ease: cubic-bezier(.77,0,.175,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--oud);overflow-x:hidden;cursor:none}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--oud)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--blush),var(--gold));border-radius:3px}
+
+/* ===== NOISE + VIGNETTE ===== */
+body::before{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+body::after{content:'';position:fixed;inset:0;z-index:9997;pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 50%, rgba(30,10,13,.25) 100%);}
+
+/* ===== CURSOR ===== */
+#cursor{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid var(--blush);pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .1s linear,width .3s,height .3s,border-color .3s;opacity:.5}
+#cursor-trail{position:fixed;pointer-events:none;z-index:99996}
+.trail-dot{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.3;transform:translate(-50%,-50%)}
+body.hovering #cursor{width:5px;height:5px;background:var(--blush)}
+body.hovering #cursor-ring{width:50px;height:50px;border-color:var(--gold);opacity:.7}
+
+/* ===== SCROLL PROGRESS ===== */
+#scroll-progress{position:fixed;top:0;left:0;height:2px;z-index:10000;background:linear-gradient(90deg,var(--blush),var(--gold));transform-origin:left;transform:scaleX(0)}
+
+/* ===== PARTICLES CANVAS ===== */
+#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.6}
+
+/* ===== LOADER ===== */
+.loader{position:fixed;inset:0;background:var(--oud);display:flex;align-items:center;justify-content:center;z-index:90000;transition:opacity 1.2s var(--ease),visibility 1.2s}
+.loader.out{opacity:0;visibility:hidden}
+.loader-inner{text-align:center}
+.loader-name{font-family:var(--font-title);font-size:clamp(2.5rem,10vw,5rem);color:var(--cream);letter-spacing:.6em;opacity:0;animation:loaderReveal 1s ease .3s forwards}
+.loader-name span{display:inline-block;opacity:0;animation:loaderChar .6s ease forwards}
+.loader-bar{width:0;height:1px;background:linear-gradient(90deg,var(--blush),var(--gold));margin:28px auto;animation:barGrow 1.8s ease .5s forwards}
+.loader-sub{font-family:var(--font-display);font-style:italic;color:var(--blush);letter-spacing:.35em;font-size:clamp(.75rem,2.5vw,.95rem);opacity:0;animation:fadeIn 1s ease 1s forwards}
+@keyframes loaderChar{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loaderReveal{to{opacity:1}}
+@keyframes barGrow{to{width:min(220px,55vw)}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:26px 60px;display:flex;align-items:center;justify-content:space-between;transition:all .5s var(--ease)}
+nav.solid{background:rgba(250,246,238,.96);backdrop-filter:blur(24px);padding:16px 60px;border-bottom:1px solid rgba(196,149,106,.12);box-shadow:0 4px 30px rgba(30,10,13,.06)}
+.logo{font-family:var(--font-title);font-size:1.5rem;color:var(--wine);text-decoration:none;letter-spacing:.15em;transition:transform .3s}
+.logo:hover{transform:scale(1.02)}
+.logo span{color:var(--blush);font-style:italic;font-family:var(--font-display)}
+.nav-links{list-style:none;display:flex;gap:36px;align-items:center}
+.nav-links a{text-decoration:none;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:linear-gradient(90deg,var(--blush),var(--gold));transition:width .4s var(--ease)}
+.nav-links a:hover{color:var(--blush)}
+.nav-links a:hover::after{width:100%}
+.nav-rdv-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border:1px solid rgba(196,149,106,.35);border-radius:60px;font-size:.76rem;letter-spacing:.08em;color:var(--wine)!important;transition:all .35s;background:transparent;text-decoration:none!important;position:relative;overflow:hidden}
+.nav-rdv-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--rouge),var(--blush));transform:translateX(-101%);transition:transform .4s var(--ease);border-radius:60px;z-index:-1}
+.nav-rdv-btn:hover{color:var(--cream)!important;border-color:transparent}
+.nav-rdv-btn:hover::before{transform:translateX(0)}
+.nav-rdv-btn::after{display:none!important}
+.mobile-menu-btn{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:8px}
+.mobile-menu-btn span{width:24px;height:1.5px;background:var(--wine);display:block;transition:all .3s}
+.mobile-menu-btn.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.mobile-menu-btn.open span:nth-child(2){opacity:0}
+.mobile-menu-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ===== HERO ===== */
+.hero{height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--oud)}
+.hero-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 100% at 70% 50%,rgba(196,149,106,.1) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 70% at 20% 80%,rgba(61,21,32,.7) 0%,transparent 70%),
+  linear-gradient(135deg,#1E0A0D 0%,#3D1520 40%,#2A0E14 100%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:grayscale(8%) sepia(12%)}
+.hero-ambient{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hero-ambient-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:orbFloat 12s ease-in-out infinite}
+.hero-ambient-orb:nth-child(1){width:400px;height:400px;background:var(--blush);top:10%;right:15%;animation-delay:0s}
+.hero-ambient-orb:nth-child(2){width:300px;height:300px;background:var(--gold);bottom:20%;left:10%;animation-delay:-4s}
+.hero-ambient-orb:nth-child(3){width:250px;height:250px;background:var(--rouge);top:50%;left:40%;animation-delay:-8s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.95)}}
+
+.hero-content{position:relative;z-index:3;padding:0 60px;max-width:780px}
+.hero-tag{font-family:var(--font-display);font-style:italic;color:var(--blush);font-size:1.1rem;letter-spacing:.2em;opacity:0;animation:slideUp .9s var(--ease) 1.8s forwards}
+.hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,7vw,7rem);font-weight:300;color:var(--cream);line-height:1.05;margin:18px 0 28px;opacity:0;animation:slideUp .9s var(--ease) 2.1s forwards}
+.hero-title em{font-style:italic;color:var(--blush);display:block;position:relative}
+.hero-title em::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:linear-gradient(90deg,var(--blush),transparent);animation:lineGrow 1.2s ease 2.8s forwards}
+@keyframes lineGrow{to{width:100%}}
+.hero-desc{font-size:1rem;color:rgba(250,246,238,.65);font-weight:300;line-height:1.8;max-width:440px;opacity:0;animation:slideUp .9s var(--ease) 2.4s forwards}
+.hero-cta{display:flex;gap:16px;margin-top:38px;opacity:0;animation:slideUp .9s var(--ease) 2.7s forwards;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;background:linear-gradient(135deg,var(--rouge),var(--blush));color:#fff;border:none;border-radius:60px;font-family:var(--font-body);font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:none;text-decoration:none;transition:all .4s var(--ease);box-shadow:0 15px 40px rgba(123,45,58,.3);position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blush),var(--gold));opacity:0;transition:opacity .4s}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(123,45,58,.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;border:1px solid rgba(250,246,238,.25);color:var(--cream);border-radius:60px;font-family:var(--font-body);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:none;text-decoration:none;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.btn-ghost::before{content:'';position:absolute;inset:0;background:rgba(250,246,238,.06);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.btn-ghost:hover{border-color:var(--blush);color:var(--blush)}
+.btn-ghost:hover::before{transform:scaleX(1)}
+.btn-ghost span{position:relative;z-index:1}
+.hero-scroll{position:absolute;bottom:40px;left:60px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeIn .8s ease 3.2s forwards;z-index:3}
+.hero-scroll span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,246,238,.45)}
+.scroll-line{width:60px;height:1px;background:linear-gradient(90deg,var(--blush),transparent);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--blush);animation:scrollMove 2.2s ease-in-out infinite}
+@keyframes scrollMove{to{left:200%}}
+.hero-decor{position:absolute;right:60px;bottom:60px;font-family:var(--font-display);font-style:italic;font-size:.75rem;color:rgba(250,246,238,.25);letter-spacing:.15em;writing-mode:vertical-rl;opacity:0;animation:fadeIn 1s ease 3.5s forwards;z-index:3}
+.hero-stat{position:absolute;top:50%;right:8%;transform:translateY(-50%);z-index:3;opacity:0;animation:fadeIn 1s ease 3s forwards}
+.hero-stat-item{background:rgba(250,246,238,.04);backdrop-filter:blur(12px);border:1px solid rgba(196,149,106,.18);border-radius:16px;padding:20px 28px;margin-bottom:12px;text-align:center;transition:all .4s var(--ease)}
+.hero-stat-item:hover{transform:translateX(-4px);border-color:rgba(196,149,106,.35);background:rgba(250,246,238,.07)}
+.hero-stat-item h4{font-family:var(--font-display);font-size:2.2rem;color:var(--blush);font-weight:400;line-height:1}
+.hero-stat-item p{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,246,238,.45);margin-top:4px}
+@keyframes slideUp{from{opacity:0;transform:translateY(45px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== MARQUEE ===== */
+.marquee-strip{background:var(--wine);padding:14px 0;overflow:hidden;position:relative;z-index:2}
+.marquee-strip::before,.marquee-strip::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.marquee-strip::before{left:0;background:linear-gradient(90deg,var(--wine),transparent)}
+.marquee-strip::after{right:0;background:linear-gradient(-90deg,var(--wine),transparent)}
+.marquee-inner{display:flex;white-space:nowrap;animation:marqueeScroll 22s linear infinite}
+.marquee-inner span{font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--sand);padding:0 40px;letter-spacing:.1em}
+.marquee-inner .dot{color:var(--blush);font-size:.8rem}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== SHARED REVEAL ===== */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.15s}
+.reveal-delay-2{transition-delay:.3s}
+.reveal-delay-3{transition-delay:.45s}
+
+.section-kicker{font-family:var(--font-display);font-style:italic;font-size:1.1rem;color:var(--blush);letter-spacing:.15em;text-align:center;display:block;margin-bottom:16px}
+.section-title{font-family:var(--font-display);font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;color:var(--wine);text-align:center;line-height:1.15}
+.section-line{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--blush),transparent);margin:24px auto 60px}
+
+/* ===== STORY ===== */
+.story{padding:0;background:var(--oud);position:relative;overflow:hidden;min-height:680px;display:flex;align-items:center}
+.story-video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;display:block}
+.story-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(30,10,13,.9) 0%,rgba(30,10,13,.65) 50%,rgba(30,10,13,.4) 100%)}
+.story-grid{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:120px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
+.story-text .section-kicker,.story-text .section-title{text-align:left;color:var(--cream)}
+.story-text .section-kicker{color:var(--blush)}
+.story-text .section-line{margin-left:0;background:linear-gradient(90deg,var(--blush),transparent)}
+.story-text p{font-size:.95rem;line-height:1.9;color:rgba(250,246,238,.7);font-weight:300;margin-bottom:16px}
+.story-stats{display:flex;gap:40px;margin-top:40px;padding-top:40px;border-top:1px solid rgba(196,149,106,.2)}
+.stat-n{font-family:var(--font-display);font-size:2.8rem;color:var(--blush);font-weight:400;line-height:1}
+.stat-l{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,246,238,.4);margin-top:6px}
+.story-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.story-visual-frame{border:1px solid rgba(196,149,106,.25);border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:18px;backdrop-filter:blur(4px);background:rgba(250,246,238,.03);transition:all .5s var(--ease)}
+.story-visual-frame:hover{border-color:rgba(196,149,106,.45);background:rgba(250,246,238,.06);transform:translateY(-4px)}
+.story-visual-stat{text-align:center;padding:20px 30px}
+.story-visual-stat .stat-n{font-size:3.2rem}
+
+/* ===== SERVICES ===== */
+.services{padding:120px 60px;background:var(--cream);position:relative}
+.svc-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc-card{position:relative;border-radius:20px;overflow:hidden;height:400px;cursor:none;transform-style:preserve-3d;transition:transform .4s var(--ease)}
+.svc-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .8s;filter:brightness(.72)}
+.svc-card:hover img{transform:scale(1.1);filter:brightness(.5)}
+.svc-content{position:absolute;inset:0;padding:36px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top,rgba(30,10,13,.88) 0%,rgba(30,10,13,.25) 60%,transparent 100%)}
+.svc-icon{font-size:1.8rem;margin-bottom:auto;transition:transform .4s var(--ease-spring)}
+.svc-card:hover .svc-icon{transform:scale(1.15) rotate(-5deg)}
+.svc-name{font-family:var(--font-display);font-size:1.5rem;color:#fff;font-weight:400;margin-bottom:8px;transition:color .3s}
+.svc-desc{font-size:.82rem;color:rgba(255,255,255,.68);line-height:1.6;margin-bottom:16px;max-height:0;overflow:hidden;transition:max-height .6s var(--ease),opacity .6s;opacity:0}
+.svc-card:hover .svc-desc{max-height:90px;opacity:1}
+.svc-price{display:inline-block;padding:7px 18px;border:1px solid rgba(196,149,106,.45);color:var(--blush);border-radius:30px;font-size:.75rem;letter-spacing:.08em;transition:all .3s}
+.svc-card:hover .svc-price{background:rgba(196,149,106,.15);border-color:var(--blush)}
+/* Shine sweep */
+.svc-card::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.06) 48%,rgba(255,255,255,.12) 50%,rgba(255,255,255,.06) 52%,transparent 60%);opacity:0;transition:opacity .5s;pointer-events:none}
+.svc-card:hover::after{opacity:1}
+
+/* ===== HAMMAM ===== */
+.hammam{padding:0;background:var(--oud);overflow:hidden;position:relative;min-height:680px;display:flex;align-items:center}
+.hammam-video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;display:block}
+.hammam-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(30,10,13,.25) 0%,rgba(30,10,13,.55) 45%,rgba(30,10,13,.92) 100%)}
+.hammam-grid{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:120px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
+.hammam-text{display:flex;flex-direction:column;justify-content:center}
+.hammam-text .section-kicker,.hammam-text .section-title{text-align:left;color:var(--cream)}
+.hammam-text .section-kicker{color:var(--blush)}
+.hammam-text .section-line{margin-left:0;background:linear-gradient(90deg,var(--blush),transparent)}
+.hammam-text p{color:rgba(250,246,238,.68);font-size:.95rem;line-height:1.9;font-weight:300;margin-bottom:16px}
+.hammam-features{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px}
+.feat{display:flex;gap:14px;align-items:flex-start;transition:transform .3s}
+.feat:hover{transform:translateX(4px)}
+.feat-ico{width:38px;height:38px;min-width:38px;border-radius:10px;background:rgba(196,149,106,.12);border:1px solid rgba(196,149,106,.22);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .3s}
+.feat:hover .feat-ico{background:rgba(196,149,106,.2);border-color:var(--blush);transform:scale(1.08)}
+.feat h5{font-family:var(--font-display);font-size:1rem;color:var(--cream);font-weight:400;margin-bottom:4px}
+.feat p{font-size:.78rem;color:rgba(250,246,238,.45)}
+
+/* ===== GALLERY 3D ===== */
+.gallery{padding:120px 0;background:var(--oud);position:relative;overflow:hidden}
+.gallery::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(196,149,106,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 20% 100%,rgba(123,45,58,.1) 0%,transparent 50%),radial-gradient(ellipse 40% 30% at 80% 100%,rgba(184,150,46,.06) 0%,transparent 50%);pointer-events:none;z-index:0}
+.gallery-header{text-align:center;position:relative;z-index:2;margin-bottom:80px;padding:0 24px}
+.gallery-header .section-kicker{color:var(--blush)}
+.gallery-header .section-title{color:var(--cream)}
+.gallery-header .section-line{background:linear-gradient(90deg,transparent,var(--blush),transparent)}
+.gallery-counter{font-family:var(--font-display);font-size:.85rem;color:rgba(250,246,238,.3);letter-spacing:.2em;margin-top:-30px;margin-bottom:60px;text-align:center;position:relative;z-index:2}
+.gallery-counter span{color:var(--blush)}
+.gallery-scene{position:relative;z-index:2;width:100%;height:600px;perspective:1200px;perspective-origin:50% 50%;display:flex;align-items:center;justify-content:center;cursor:none}
+.gallery-track{position:relative;width:340px;height:520px;transform-style:preserve-3d}
+.g-card{position:absolute;width:320px;height:480px;top:50%;left:50%;transform-origin:center center;transform:translateX(-50%) translateY(-50%);border-radius:24px;overflow:hidden;cursor:none;transition:all .9s cubic-bezier(.25,.46,.45,.94);backface-visibility:hidden;opacity:0}
+.g-card img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .7s var(--ease),filter .7s;pointer-events:none;display:block}
+.g-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(30,10,13,.9) 0%,rgba(30,10,13,.3) 40%,rgba(30,10,13,.05) 70%,transparent 100%);transition:opacity .5s}
+.g-card-info{position:absolute;bottom:0;left:0;right:0;padding:32px 28px;transform:translateY(12px);transition:transform .6s var(--ease),opacity .6s;opacity:0}
+.g-card-info-tag{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blush);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.g-card-info-tag::before{content:'';width:20px;height:1px;background:var(--blush);display:inline-block}
+.g-card-info h3{font-family:var(--font-display);font-size:1.6rem;font-weight:400;color:#fff;line-height:1.2;margin-bottom:8px}
+.g-card-info p{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5}
+.g-card-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1) 0%,transparent 50%,rgba(255,255,255,.03) 100%);pointer-events:none;opacity:0;transition:opacity .5s;border-radius:24px}
+.g-card-frame{position:absolute;inset:12px;border:1px solid rgba(196,149,106,0);border-radius:16px;transition:border-color .5s;pointer-events:none;z-index:3}
+.g-card.is-active img{transform:scale(1.04)}
+.g-card.is-active .g-card-info{opacity:1;transform:translateY(0)}
+.g-card.is-active .g-card-shine{opacity:1}
+.g-card.is-active .g-card-frame{border-color:rgba(196,149,106,.3)}
+.g-card.is-active .g-card-overlay{background:linear-gradient(to top,rgba(30,10,13,.92) 0%,rgba(30,10,13,.35) 40%,transparent 70%)}
+.g-card-num{position:absolute;top:20px;left:20px;font-family:var(--font-display);font-size:3rem;font-weight:300;color:rgba(250,246,238,.06);line-height:1;z-index:2;pointer-events:none;transition:color .5s}
+.g-card.is-active .g-card-num{color:rgba(250,246,238,.12)}
+.g-card-corner{position:absolute;top:16px;right:16px;width:32px;height:32px;z-index:4;opacity:0;transition:opacity .5s}
+.g-card-corner::before,.g-card-corner::after{content:'';position:absolute;background:var(--blush)}
+.g-card-corner::before{top:0;right:0;width:1px;height:100%}
+.g-card-corner::after{top:0;right:0;width:100%;height:1px}
+.g-card.is-active .g-card-corner{opacity:1}
+.gallery-nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:center;gap:32px;margin-top:60px;padding:0 24px}
+.gallery-nav-btn{width:56px;height:56px;border-radius:50%;border:1px solid rgba(196,149,106,.25);background:rgba(250,246,238,.03);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .4s var(--ease);color:rgba(250,246,238,.5);font-size:1.2rem;flex-shrink:0;position:relative;overflow:hidden}
+.gallery-nav-btn::before{content:'';position:absolute;inset:0;background:var(--blush);border-radius:50%;transform:scale(0);transition:transform .4s var(--ease-spring)}
+.gallery-nav-btn:hover{color:#fff;border-color:var(--blush)}
+.gallery-nav-btn:hover::before{transform:scale(1)}
+.gallery-nav-btn span{position:relative;z-index:1}
+.gallery-dots{display:flex;gap:8px;align-items:center}
+.gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(250,246,238,.15);cursor:none;transition:all .5s var(--ease);border:none;padding:0}
+.gallery-dot.active{width:32px;border-radius:3px;background:linear-gradient(90deg,var(--blush),var(--gold))}
+.gallery-thumbs{position:absolute;right:60px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:10}
+.gallery-thumb{width:64px;height:80px;border-radius:10px;overflow:hidden;cursor:none;border:2px solid transparent;transition:all .5s var(--ease);opacity:.35;flex-shrink:0}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;pointer-events:none}
+.gallery-thumb.active{border-color:var(--blush);opacity:1;transform:scale(1.08)}
+.gallery-thumb:hover{opacity:.7}
+.gallery-side-info{position:absolute;left:60px;top:50%;transform:translateY(-50%);z-index:10;max-width:200px}
+.gallery-side-label{writing-mode:vertical-rl;font-family:var(--font-display);font-style:italic;font-size:.85rem;color:rgba(250,246,238,.25);letter-spacing:.2em;margin-bottom:24px}
+.gallery-side-progress{width:1px;height:120px;background:rgba(196,149,106,.12);position:relative;margin:0 auto}
+.gallery-side-progress-fill{position:absolute;top:0;left:0;width:100%;background:linear-gradient(to bottom,var(--blush),var(--gold));border-radius:1px;transition:height .7s var(--ease);height:0%}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:120px 60px;background:var(--cream);position:relative}
+.reviews-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
+.review-card{background:var(--white);border-radius:20px;padding:38px;position:relative;overflow:hidden;transition:all .5s var(--ease);border:1px solid transparent}
+.review-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(30,10,13,.08);border-color:rgba(196,149,106,.15)}
+.review-card::before{content:'"';font-family:var(--font-display);font-size:7rem;color:var(--sand);position:absolute;top:-10px;left:20px;line-height:1;z-index:0;transition:color .3s}
+.review-card:hover::before{color:var(--blush)}
+.review-card.featured{background:linear-gradient(145deg,var(--wine),var(--rouge));color:#fff;transform:scale(1.02)}
+.review-card.featured:hover{transform:scale(1.02) translateY(-6px);box-shadow:0 25px 60px rgba(123,45,58,.25)}
+.review-card.featured::before{color:rgba(255,255,255,.06)}
+.stars{color:var(--gold);font-size:1rem;margin-bottom:16px;letter-spacing:.15em;position:relative;z-index:1}
+.review-text{font-family:var(--font-display);font-style:italic;font-size:1.1rem;line-height:1.7;position:relative;z-index:1;margin-bottom:24px}
+.review-card.featured .review-text{color:rgba(255,255,255,.88)}
+.reviewer{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.reviewer-av{width:40px;height:40px;border-radius:50%;background:var(--blush);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:.9rem;transition:transform .3s}
+.review-card:hover .reviewer-av{transform:scale(1.1)}
+.reviewer h5{font-size:.88rem;font-weight:600;color:var(--wine)}
+.review-card.featured .reviewer h5{color:#fff}
+.reviewer p{font-size:.75rem;color:var(--stone)}
+.review-card.featured .reviewer p{color:rgba(255,255,255,.55)}
+
+/* ===== CONTACT ===== */
+.contact{padding:120px 60px;background:var(--oud);position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(196,149,106,.06) 0%,transparent 70%)}
+.contact .section-kicker{color:var(--blush)}
+.contact .section-title{color:var(--cream)}
+.contact .section-line{background:linear-gradient(90deg,transparent,var(--blush),transparent)}
+.contact-wrapper{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-info-panel{display:flex;flex-direction:column;gap:32px}
+.contact-info-header h3{font-family:var(--font-display);font-size:2rem;color:var(--cream);font-weight:400;line-height:1.2;margin-bottom:12px}
+.contact-info-header p{font-size:.92rem;color:rgba(250,246,238,.55);line-height:1.8}
+.contact-details-grid{display:flex;flex-direction:column;gap:16px}
+.contact-detail-card{display:flex;align-items:flex-start;gap:18px;padding:20px 24px;background:rgba(250,246,238,.03);border:1px solid rgba(196,149,106,.12);border-radius:16px;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.contact-detail-card::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(196,149,106,.06),transparent);transform:translateX(-100%);transition:transform .5s var(--ease)}
+.contact-detail-card:hover{background:rgba(250,246,238,.05);border-color:rgba(196,149,106,.25);transform:translateX(5px)}
+.contact-detail-card:hover::before{transform:translateX(0)}
+.contact-detail-ico{width:46px;height:46px;min-width:46px;background:rgba(196,149,106,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:1px solid rgba(196,149,106,.18);transition:all .3s;position:relative;z-index:1}
+.contact-detail-card:hover .contact-detail-ico{background:rgba(196,149,106,.18);border-color:var(--blush);transform:scale(1.05)}
+.contact-detail-body{position:relative;z-index:1}
+.contact-detail-body h4{font-family:var(--font-display);font-size:.85rem;color:var(--blush);font-weight:400;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.contact-detail-body p,.contact-detail-body a{font-size:.92rem;color:rgba(250,246,238,.65);text-decoration:none;line-height:1.5;transition:color .3s;display:block}
+.contact-detail-body a:hover{color:var(--blush)}
+.hours-panel{background:rgba(250,246,238,.03);border:1px solid rgba(196,149,106,.12);border-radius:16px;padding:28px;transition:all .4s}
+.hours-panel:hover{border-color:rgba(196,149,106,.22)}
+.hours-panel-title{font-family:var(--font-display);font-size:1.1rem;color:var(--cream);font-weight:400;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hours-panel-title::after{content:'';flex:1;height:1px;background:rgba(196,149,106,.15)}
+.hour-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(196,149,106,.08);transition:all .3s}
+.hour-row:hover{padding-left:8px}
+.hour-row:last-child{border:none;padding-bottom:0}
+.hour-day{font-size:.85rem;color:rgba(250,246,238,.5)}
+.hour-time{font-family:var(--font-display);font-size:.95rem;color:var(--blush);font-weight:400}
+.contact-wa-panel{position:sticky;top:100px}
+.wa-card{background:linear-gradient(145deg,rgba(250,246,238,.05) 0%,rgba(196,149,106,.06) 100%);border:1px solid rgba(196,149,106,.18);border-radius:28px;padding:52px 44px;backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:all .5s var(--ease)}
+.wa-card:hover{border-color:rgba(196,149,106,.3);transform:translateY(-3px);box-shadow:0 20px 60px rgba(30,10,13,.2)}
+.wa-card::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(196,149,106,.1) 0%,transparent 70%);pointer-events:none}
+.wa-card::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,.05) 0%,transparent 70%);pointer-events:none}
+.wa-card-kicker{font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--blush);letter-spacing:.15em;display:block;margin-bottom:16px}
+.wa-card-title{font-family:var(--font-display);font-size:2.4rem;color:var(--cream);font-weight:300;line-height:1.15;margin-bottom:20px}
+.wa-card-title span{color:var(--blush);font-style:italic}
+.wa-card-desc{font-size:.92rem;color:rgba(250,246,238,.55);line-height:1.8;margin-bottom:36px}
+.wa-features{display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
+.wa-feature{display:flex;align-items:center;gap:14px}
+.wa-feature-ico{width:32px;height:32px;min-width:32px;border-radius:8px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.18);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .3s}
+.wa-feature:hover .wa-feature-ico{background:rgba(37,211,102,.18);transform:scale(1.1)}
+.wa-feature span{font-size:.88rem;color:rgba(250,246,238,.65)}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 36px;background:linear-gradient(135deg,#25D366,#128C50);color:#fff;border-radius:16px;text-decoration:none;font-family:var(--font-body);font-size:.95rem;font-weight:600;letter-spacing:.06em;transition:all .4s var(--ease);box-shadow:0 16px 45px rgba(37,211,102,.25);position:relative;z-index:1;overflow:hidden}
+.wa-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#128C50,#25D366);opacity:0;transition:opacity .4s}
+.wa-btn:hover{transform:translateY(-3px);box-shadow:0 24px 60px rgba(37,211,102,.4)}
+.wa-btn:hover::before{opacity:1}
+.wa-btn svg,.wa-btn span{position:relative;z-index:1}
+.wa-btn-pulse{position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,#25D366,#128C50);animation:waPulse 2.5s ease-in-out infinite;z-index:-1}
+@keyframes waPulse{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.12;transform:scale(1.04)}}
+.wa-divider{display:flex;align-items:center;gap:16px;margin:24px 0}
+.wa-divider::before,.wa-divider::after{content:'';flex:1;height:1px;background:rgba(196,149,106,.15)}
+.wa-divider span{font-size:.75rem;color:rgba(250,246,238,.3);letter-spacing:.1em;text-transform:uppercase}
+.wa-alt-links{display:flex;gap:12px;justify-content:center}
+.wa-alt-btn{display:flex;align-items:center;gap:8px;padding:12px 22px;border:1px solid rgba(196,149,106,.2);border-radius:12px;color:rgba(250,246,238,.55);font-size:.82rem;text-decoration:none;transition:all .35s;background:rgba(250,246,238,.02);position:relative;overflow:hidden}
+.wa-alt-btn::before{content:'';position:absolute;inset:0;background:rgba(196,149,106,.08);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.wa-alt-btn:hover{border-color:rgba(196,149,106,.4);color:var(--blush);background:rgba(250,246,238,.04)}
+.wa-alt-btn:hover::before{transform:scaleX(1)}
+.wa-alt-btn span{position:relative;z-index:1}
+
+/* ===== FOOTER ===== */
+footer{background:var(--oud);padding:80px 60px 40px;border-top:1px solid rgba(196,149,106,.08);position:relative}
+footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--blush),transparent)}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-brand .logo{font-size:1.8rem;display:block;margin-bottom:16px;color:var(--cream)!important}
+.footer-brand p{font-size:.85rem;color:rgba(250,246,238,.45);line-height:1.8;font-weight:300}
+.social-row{display:flex;gap:12px;margin-top:24px}
+.social-btn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(250,246,238,.12);display:flex;align-items:center;justify-content:center;color:rgba(250,246,238,.45);font-size:.85rem;text-decoration:none;transition:all .35s;cursor:none;position:relative;overflow:hidden}
+.social-btn::before{content:'';position:absolute;inset:0;background:var(--blush);border-radius:50%;transform:scale(0);transition:transform .4s var(--ease-spring)}
+.social-btn:hover{border-color:var(--blush);color:#fff;transform:translateY(-3px)}
+.social-btn:hover::before{transform:scale(1)}
+.social-btn span{position:relative;z-index:1}
+.footer-col h4{font-family:var(--font-display);font-size:1.1rem;color:var(--sand);margin-bottom:22px;font-weight:400}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:12px}
+.footer-col a{font-size:.84rem;color:rgba(250,246,238,.4);text-decoration:none;transition:all .3s;display:inline-block;position:relative}
+.footer-col a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--blush);transition:width .3s var(--ease)}
+.footer-col a:hover{color:var(--blush)}
+.footer-col a:hover::after{width:100%}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:32px;border-top:1px solid rgba(250,246,238,.06);display:flex;justify-content:space-between;font-size:.78rem;color:rgba(250,246,238,.25)}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--wine);color:var(--cream);padding:14px 28px;border-radius:50px;font-size:.85rem;font-weight:500;z-index:9000;opacity:0;transition:all .4s var(--ease);white-space:nowrap;box-shadow:0 15px 40px rgba(30,10,13,.25);border:1px solid rgba(196,149,106,.15)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== FAB ===== */
+.fab-wa{position:fixed;bottom:30px;right:30px;z-index:900;background:#25D366;width:58px;height:58px;border-radius:50%;border:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#fff;box-shadow:0 8px 30px rgba(37,211,102,.4);transition:all .4s var(--ease);text-decoration:none;animation:fabFloat 3s ease-in-out infinite}
+.fab-wa:hover{transform:scale(1.15);box-shadow:0 16px 45px rgba(37,211,102,.55)}
+@keyframes fabFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ===== RIPPLE ===== */
+.ripple{position:absolute;border-radius:50%;background:rgba(196,149,106,.25);transform:scale(0);animation:rippleAnim .7s ease-out;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1200px){
+  .gallery-side-info{display:none}
+  .gallery-thumbs{right:24px}
+}
+@media(max-width:1024px){
+  .reviews-grid{grid-template-columns:1fr 1fr}
+  .hammam-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .story-grid{grid-template-columns:1fr;gap:40px;padding:80px 24px}
+  .story-visual{display:none}
+  .contact-wrapper{grid-template-columns:1fr}
+  .contact-wa-panel{position:static}
+  .gallery-thumbs{display:none}
+}
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  nav.solid{padding:14px 24px}
+  .nav-links{position:fixed;inset:0;background:var(--cream);flex-direction:column;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:all .5s var(--ease);z-index:999;transform:translateY(-20px)}
+  .nav-links.open{opacity:1;visibility:visible;transform:translateY(0)}
+  .hero-content{padding:0 24px;max-width:100%}
+  .hero-stat{display:none}
+  .hero-scroll{left:24px;bottom:30px}
+  .hero-decor{display:none}
+  .services{padding:80px 24px}
+  .svc-grid{grid-template-columns:1fr;gap:16px}
+  .reviews{padding:80px 24px}
+  .reviews-grid{grid-template-columns:1fr}
+  .story{padding:0}
+  .story-grid{padding:80px 24px}
+  .gallery{padding:80px 0}
+  .gallery-scene{height:480px}
+  .g-card{width:260px;height:380px}
+  .gallery-track{width:280px;height:400px}
+  .contact{padding:80px 24px}
+  .wa-card{padding:32px 24px}
+  .wa-card-title{font-size:1.8rem}
+  .wa-alt-links{flex-direction:column}
+  .wa-alt-btn{justify-content:center}
+  .footer-grid{grid-template-columns:1fr;gap:36px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  footer{padding:60px 24px 32px}
+  .hammam-grid{padding:80px 24px;grid-template-columns:1fr}
+  .hammam-grid>div:first-child{display:none}
+  .hammam-features{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-trail"></div>
+<div id="scroll-progress"></div>
+<canvas id="dust-canvas"></canvas>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-name" id="loaderName"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-sub">Beauté & Spa Tunisien</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">Anaïs<span> & Spa</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#story">Notre Histoire</a></li>
+    <li><a href="#services">Prestations</a></li>
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-rdv-btn">✦ Rendez-vous</a></li>
+  </ul>
+  <button class="mobile-menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <video id="heroVideo" class="hero-video" autoplay muted playsinline loop></video>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,10,13,.92) 0%,rgba(30,10,13,.75) 35%,rgba(30,10,13,.48) 65%,rgba(30,10,13,.22) 100%),linear-gradient(to top,rgba(30,10,13,.55) 0%,transparent 50%);z-index:2"></div>
+
+  <!-- Ambient orbs -->
+  <div class="hero-ambient">
+    <div class="hero-ambient-orb"></div>
+    <div class="hero-ambient-orb"></div>
+    <div class="hero-ambient-orb"></div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-tag">✦ Ariana, Tunisie ✦</p>
+    <h1 class="hero-title">L'Art Tunisien<br>de la <em>Beauté</em></h1>
+    <p class="hero-desc">Rituels hammam ancestraux, soins naturels et produits authentiques. Une invitation au voyage au cœur de votre peau.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary" id="heroCta1"><span>Prendre Rendez-vous →</span></a>
+      <a href="#services" class="btn-ghost" id="heroCta2"><span>Nos Soins</span></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+  <div class="hero-decor">Beauté · Tradition · Authenticité</div>
+  <div class="hero-stat">
+    <div class="hero-stat-item"><h4>8+</h4><p>Années</p></div>
+    <div class="hero-stat-item"><h4>74K</h4><p>Abonnés</p></div>
+    <div class="hero-stat-item"><h4>50+</h4><p>Produits</p></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Savon Noir Beldi</span><span class="dot">✦</span>
+    <span>Huile d'Argan Bio</span><span class="dot">✦</span>
+    <span>Ghassoul Naturel</span><span class="dot">✦</span>
+    <span>Cire au Sucre</span><span class="dot">✦</span>
+    <span>Hammam Rituel</span><span class="dot">✦</span>
+    <span>Eau de Rose</span><span class="dot">✦</span>
+    <span>Beurre de Karité</span><span class="dot">✦</span>
+    <span>Savon Noir Beldi</span><span class="dot">✦</span>
+    <span>Huile d'Argan Bio</span><span class="dot">✦</span>
+    <span>Ghassoul Naturel</span><span class="dot">✦</span>
+    <span>Cire au Sucre</span><span class="dot">✦</span>
+    <span>Hammam Rituel</span><span class="dot">✦</span>
+    <span>Eau de Rose</span><span class="dot">✦</span>
+    <span>Beurre de Karité</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <video id="storyVid" class="story-video-bg" autoplay muted playsinline loop></video>
+  <div class="story-overlay"></div>
+  <div class="story-grid">
+    <div class="story-text reveal">
+      <span class="section-kicker">Notre Histoire</span>
+      <h2 class="section-title" style="text-align:left">Un Refuge de Sérénité à Ariana</h2>
+      <div class="section-line" style="margin-left:0;background:linear-gradient(90deg,var(--blush),transparent)"></div>
+      <p>Nichée sur l'Avenue des Jasmins, Anaïs Beauty & Spa est bien plus qu'un institut de beauté. C'est une invitation au voyage, un hommage à la tradition tunisienne du hammam sublimée par une touche contemporaine.</p>
+      <p>Nous sélectionnons les meilleurs produits naturels — savon noir, argan pur, ghassoul ancestral, cire au sucre — directement sourcés avec soin pour votre peau et vos cheveux.</p>
+      <div class="story-stats">
+        <div><div class="stat-n" data-count="8">0</div><div class="stat-l">Années d'expertise</div></div>
+        <div><div class="stat-n" data-count="74">0</div><div class="stat-l">Mille abonnés</div></div>
+        <div><div class="stat-n" data-count="50">0</div><div class="stat-l">Produits naturels</div></div>
+      </div>
+    </div>
+    <div class="story-visual reveal reveal-delay-1">
+      <div class="story-visual-frame">
+        <div style="display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid rgba(196,149,106,.2)">
+          <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,149,106,.15);border:1px solid rgba(196,149,106,.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem">🌿</div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:1.05rem;color:var(--cream)">Anaïs Beauty & Spa</div>
+            <div style="font-size:.75rem;color:var(--blush);letter-spacing:.08em">Ariana, Tunisie</div>
+          </div>
+        </div>
+        <p style="font-family:var(--font-display);font-style:italic;font-size:1.1rem;color:rgba(250,246,238,.7);line-height:1.7;padding:4px 0">"Un sanctuaire de beauté où la tradition tunisienne rencontre l'élégance contemporaine."</p>
+        <div style="display:flex;border-top:1px solid rgba(196,149,106,.2);padding-top:18px">
+          <div class="story-visual-stat" style="flex:1;border-right:1px solid rgba(196,149,106,.15)"><div class="stat-n" data-count="8">0</div><div class="stat-l" style="color:rgba(250,246,238,.45)">Années</div></div>
+          <div class="story-visual-stat" style="flex:1;border-right:1px solid rgba(196,149,106,.15)"><div class="stat-n" data-count="74">0</div><div class="stat-l" style="color:rgba(250,246,238,.45)">K Foll.</div></div>
+          <div class="story-visual-stat" style="flex:1"><div class="stat-n" data-count="50">0</div><div class="stat-l" style="color:rgba(250,246,238,.45)">Produits</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="reveal">
+    <span class="section-kicker">Nos Prestations</span>
+    <h2 class="section-title">L'Art du Soin & de la Beauté</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="svc-grid reveal reveal-delay-1">
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=700&q=85" alt="Hammam">
+      <div class="svc-content"><div class="svc-icon">🌿</div><h3 class="svc-name">Hammam Rituel</h3><p class="svc-desc">Gommage savon noir, enveloppement à l'argile et soin traditionnel tunisien authentique.</p><span class="svc-price">À partir de 80 DT</span></div>
+    </div>
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=85" alt="Soins">
+      <div class="svc-content"><div class="svc-icon">✨</div><h3 class="svc-name">Soins & Épilation</h3><p class="svc-desc">Épilation au sucre, soins du visage sur mesure et beauté des mains.</p><span class="svc-price">À partir de 25 DT</span></div>
+    </div>
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=700&q=85" alt="Massage">
+      <div class="svc-content"><div class="svc-icon">💆</div><h3 class="svc-name">Massage & Détente</h3><p class="svc-desc">Massage apaisant aux huiles essentielles et rituel de relaxation profonde.</p><span class="svc-price">À partir de 70 DT</span></div>
+    </div>
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=700&q=85" alt="Makeup">
+      <div class="svc-content"><div class="svc-icon">💄</div><h3 class="svc-name">Makeup & Coiffure</h3><p class="svc-desc">Maquillage Soft Glam, Glow 2026, coiffure et brushing sur devis.</p><span class="svc-price">Sur devis</span></div>
+    </div>
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=700&q=85" alt="Mains">
+      <div class="svc-content"><div class="svc-icon">💅</div><h3 class="svc-name">Beauté des Mains</h3><p class="svc-desc">Manucure, pédicure et vernis permanent dans un cadre luxueux.</p><span class="svc-price">À partir de 35 DT</span></div>
+    </div>
+    <div class="svc-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=85" alt="Pack">
+      <div class="svc-content"><div class="svc-icon">🌸</div><h3 class="svc-name">Pack Mère-Fille</h3><p class="svc-desc">Un moment de complicité unique en duo dans notre espace privatisé.</p><span class="svc-price">180 DT / duo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HAMMAM -->
+<section class="hammam" id="hammam">
+  <video id="hammamVid" class="hammam-video-bg" autoplay muted playsinline loop></video>
+  <div class="hammam-overlay"></div>
+  <div class="hammam-grid">
+    <div></div>
+    <div class="hammam-text reveal">
+      <span class="section-kicker">L'Expérience Signature</span>
+      <h2 class="section-title" style="text-align:left">Le Hammam,<br>Cœur de Notre Identité</h2>
+      <div class="section-line" style="margin-left:0;background:linear-gradient(90deg,var(--blush),transparent)"></div>
+      <p>Plongez dans l'atmosphère envoûtante de notre hammam traditionnel. Entre vapeur parfumée, chants d'eau et mosaïques scintillantes — un voyage sensoriel unique.</p>
+      <p>Nos gommeuses expertes prodiguent un soin ancestral : gommage au savon noir beldi, masque à l'argile ghassoul, et massage humide au kessa.</p>
+      <div class="hammam-features">
+        <div class="feat"><div class="feat-ico">🧖‍♀️</div><div><h5>Rituel Complet</h5><p>Gommage, enveloppement & massage</p></div></div>
+        <div class="feat"><div class="feat-ico">🌡️</div><div><h5>Vapeur Maîtrisée</h5><p>Température adaptée à votre confort</p></div></div>
+        <div class="feat"><div class="feat-ico">🌿</div><div><h5>Produits Naturels</h5><p>Savon noir, argile & huiles bio</p></div></div>
+        <div class="feat"><div class="feat-ico">✨</div><div><h5>Cadre Authentique</h5><p>Zelliges & architecture traditionnelle</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header reveal">
+    <span class="section-kicker">@anais_beautyspa</span>
+    <h2 class="section-title">Moments de Beauté</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="gallery-counter">
+    <span id="galleryCurrentNum">01</span> / <span id="galleryTotalNum">10</span>
+  </div>
+  <div class="gallery-side-info">
+    <div class="gallery-side-label">Galerie Anaïs</div>
+    <div class="gallery-side-progress">
+      <div class="gallery-side-progress-fill" id="galleryProgress"></div>
+    </div>
+  </div>
+  <div class="gallery-scene" id="galleryScene">
+    <div class="gallery-track" id="galleryTrack">
+
+      <div class="g-card" data-index="0">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151646/589279811_18089206520301275_2680796313807213227_n_wjdsju.jpg" alt="Anaïs Beauty">
+        <div class="g-card-num">01</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Anaïs Beauty & Spa</div><h3>Hammam Traditionnel</h3><p>Rituels ancestraux tunisiens</p></div>
+      </div>
+
+      <div class="g-card" data-index="1">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151658/589902796_18089206493301275_5680814907368862630_n_ezb43p.jpg" alt="Soin & Beauté">
+        <div class="g-card-num">02</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Soins Naturels</div><h3>Soin & Beauté</h3><p>Produits 100% naturels</p></div>
+      </div>
+
+      <div class="g-card" data-index="2">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151660/590547268_18089206565301275_3074004452503548008_n_riqxke.jpg" alt="Sérénité">
+        <div class="g-card-num">03</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Bien-être</div><h3>Moment de Sérénité</h3><p>Détente & relaxation profonde</p></div>
+      </div>
+
+      <div class="g-card" data-index="3">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151660/%D8%AD%D9%85%D8%A7%D9%85%D9%8A_%EF%B8%8F_%EF%B8%8F_1_iniqee.jpg" alt="Hammam">
+        <div class="g-card-num">04</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Notre Espace</div><h3>حمامي ❤️</h3><p>Un cadre authentique & chaleureux</p></div>
+      </div>
+
+      <div class="g-card" data-index="4">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151670/589146658_18089206550301275_3986200882911661080_n_nxhlmi.jpg" alt="Ambiance">
+        <div class="g-card-num">05</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Ambiance</div><h3>Chaleur & Authenticité</h3><p>L'âme du hammam tunisien</p></div>
+      </div>
+
+      <div class="g-card" data-index="5">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151674/%D8%AE%D9%85%D8%B3%D8%A9_%D9%88%D8%AE%D9%85%D9%8A%D8%B3_%D8%AD%D9%85%D8%A7%D9%85_%D8%B9%D8%B1%D9%88%D8%B3%D8%A9_photographer_traditional_dress_traditional_2_bspn50.jpg" alt="Hammam Arroussa">
+        <div class="g-card-num">06</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Hammam Arroussa</div><h3>Tradition & Élégance</h3><p>Rituel nuptial ancestral</p></div>
+      </div>
+
+      <div class="g-card" data-index="6">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151680/%D8%AD%D9%85%D8%A7%D9%85%D9%8A_%EF%B8%8F_%EF%B8%8F_wmtpyk.jpg" alt="Mariée">
+        <div class="g-card-num">07</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Hammam Mariée</div><h3>Rituel de la Mariée</h3><p>Préparation nuptiale exclusive</p></div>
+      </div>
+
+      <div class="g-card" data-index="7">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151669/%D8%AD%D9%85%D8%A7%D9%85%D9%8A_%EF%B8%8F_%EF%B8%8F_3_bibts1.jpg" alt="Tenue">
+        <div class="g-card-num">08</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Tradition</div><h3>Tenue Traditionnelle</h3><p>Beauté tunisienne authentique</p></div>
+      </div>
+
+      <div class="g-card" data-index="8">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151684/%D8%AE%D9%85%D8%B3%D8%A9_%D9%88%D8%AE%D9%85%D9%8A%D8%B3_%D8%AD%D9%85%D8%A7%D9%85_%D8%B9%D8%B1%D9%88%D8%B3%D8%A9_photographer_traditional_dress_traditional_4_hznxp8.jpg" alt="Cérémonie">
+        <div class="g-card-num">09</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">Cérémonie</div><h3>Beauté Cérémonielle</h3><p>Traditions & élégance</p></div>
+      </div>
+
+      <div class="g-card" data-index="9">
+        <img src="https://res.cloudinary.com/dlllcg1cm/image/upload/v1779151684/%D8%AE%D9%85%D8%B3%D8%A9_%D9%88%D8%AE%D9%85%D9%8A%D8%B3_%D8%AD%D9%85%D8%A7%D9%85_%D8%B9%D8%B1%D9%88%D8%B3%D8%A9_photographer_traditional_dress_traditional_gyoduo.jpg" alt="خمسة وخميس">
+        <div class="g-card-num">10</div><div class="g-card-corner"></div>
+        <div class="g-card-overlay"></div><div class="g-card-shine"></div><div class="g-card-frame"></div>
+        <div class="g-card-info"><div class="g-card-info-tag">خمسة وخميس 🥰</div><h3>Rituel Complet</h3><p>Hammam & Parure traditionnelle</p></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="gallery-thumbs" id="galleryThumbs"></div>
+  <div class="gallery-nav">
+    <button class="gallery-nav-btn" id="galleryPrev"><span>←</span></button>
+    <div class="gallery-dots" id="galleryDots"></div>
+    <button class="gallery-nav-btn" id="galleryNext"><span>→</span></button>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="testimonials">
+  <div class="reveal">
+    <span class="section-kicker">Témoignages</span>
+    <h2 class="section-title">Ce Que Nos Clientes Disent</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="reviews-grid reveal reveal-delay-1">
+    <div class="review-card featured">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Je suis partie avec ma mère pour un moment de détente mère/fille. Je résume notre expérience en un seul mot : INCROYABLE ! Le rituel hammam, gommage, enveloppement et massage humide — c'était juste magique."</p>
+      <div class="reviewer"><div class="reviewer-av">Y</div><div><h5 style="color:#fff">Yomna Ben Othman</h5><p>Rituel Mère-Fille</p></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"L'expérience du hammam est très agréable. Le lieu est impeccable, les gommeuses sont particulièrement attentionnées et bienveillantes."</p>
+      <div class="reviewer"><div class="reviewer-av">M</div><div><h5>Manel Fatnassi</h5><p>Local Guide</p></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"J'ai ajouté une épilation au sucre — 0 douleur et le résultat est parfait ! Je vous conseille vivement cette adresse unique en Tunisie."</p>
+      <div class="reviewer"><div class="reviewer-av">S</div><div><h5>Sarra Trabelsi</h5><p>Épilation au Sucre</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <span class="section-kicker">Rendez-vous</span>
+    <h2 class="section-title">Réservez Votre Moment</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info-panel reveal">
+      <div class="contact-info-header">
+        <h3>Venez Nous Rendre Visite</h3>
+        <p>Notre équipe vous accueille chaleureusement dans un cadre d'exception. Réservez votre moment de bien-être dès aujourd'hui.</p>
+      </div>
+      <div class="contact-details-grid">
+        <div class="contact-detail-card">
+          <div class="contact-detail-ico">📍</div>
+          <div class="contact-detail-body"><h4>Adresse</h4><p>Avenue Des Jasmins, Jardin d'El Menzah 2<br>2094 Ariana, Tunisie</p></div>
+        </div>
+        <div class="contact-detail-card">
+          <div class="contact-detail-ico">📞</div>
+          <div class="contact-detail-body"><h4>Téléphone</h4><a href="tel:+21623212515">+216 23 212 515</a></div>
+        </div>
+        <div class="contact-detail-card">
+          <div class="contact-detail-ico">✉️</div>
+          <div class="contact-detail-body"><h4>Email</h4><a href="mailto:anais.beauty.spa@gmail.com">anais.beauty.spa@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="hours-panel">
+        <div class="hours-panel-title">Horaires d'ouverture</div>
+        <div class="hour-row"><span class="hour-day">Lundi — Vendredi</span><span class="hour-time">09:00 — 19:00</span></div>
+        <div class="hour-row"><span class="hour-day">Samedi</span><span class="hour-time">09:00 — 19:00</span></div>
+        <div class="hour-row"><span class="hour-day">Dimanche</span><span class="hour-time">10:00 — 18:00</span></div>
+      </div>
+    </div>
+    <div class="contact-wa-panel reveal reveal-delay-1">
+      <div class="wa-card">
+        <div class="wa-btn-pulse"></div>
+        <span class="wa-card-kicker">Réservation instantanée</span>
+        <h3 class="wa-card-title">Écrivez-nous<br>sur <span>WhatsApp</span></h3>
+        <p class="wa-card-desc">Le moyen le plus rapide pour réserver votre soin. Envoyez-nous un message et nous vous confirmons votre créneau en quelques minutes.</p>
+        <div class="wa-features">
+          <div class="wa-feature"><div class="wa-feature-ico">⚡</div><span>Réponse en moins de 30 minutes</span></div>
+          <div class="wa-feature"><div class="wa-feature-ico">📅</div><span>Disponible 7j/7 de 8h à 20h</span></div>
+          <div class="wa-feature"><div class="wa-feature-ico">✅</div><span>Confirmation immédiate du créneau</span></div>
+          <div class="wa-feature"><div class="wa-feature-ico">🎁</div><span>Conseils personnalisés offerts</span></div>
+        </div>
+        <a class="wa-btn" href="https://wa.me/21623212515?text=Bonjour%20Ana%C3%AFs%20Beauty%20%26%20Spa%20%F0%9F%8C%B8%0AJe%20souhaite%20prendre%20un%20rendez-vous." target="_blank" id="waMainBtn">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.482.676 4.805 1.854 6.8L2 30l7.4-1.824A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2z" fill="#fff"/><path d="M22.5 19.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01s-.52.07-.79.37c-.27.3-1.03 1.01-1.03 2.46 0 1.45 1.05 2.85 1.2 3.05.15.2 2.07 3.16 5.01 4.43.7.3 1.25.48 1.67.61.7.22 1.34.19 1.84.11.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.19-.57-.34z" fill="#25D366"/></svg>
+          <span>Prendre Rendez-vous sur WhatsApp</span>
+        </a>
+        <div class="wa-divider"><span>ou contactez-nous via</span></div>
+        <div class="wa-alt-links">
+          <a class="wa-alt-btn" href="tel:+21623212515"><span>📞 <span>+216 23 212 515</span></span></a>
+          <a class="wa-alt-btn" href="https://instagram.com/anais_beautyspa" target="_blank"><span>📷 <span>@anais_beautyspa</span></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">Anaïs<span> & Spa</span></a>
+      <p>Un sanctuaire de bien-être au cœur d'Ariana où tradition tunisienne et élégance contemporaine se rencontrent.</p>
+      <div class="social-row">
+        <a class="social-btn" href="https://facebook.com" target="_blank"><span>f</span></a>
+        <a class="social-btn" href="https://instagram.com/anais_beautyspa" target="_blank"><span>📷</span></a>
+        <a class="social-btn" href="mailto:anais.beauty.spa@gmail.com"><span>✉</span></a>
+        <a class="social-btn" href="tel:+21623212515"><span>📞</span></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Prestations</h4>
+      <ul>
+        <li><a href="#services">Hammam Rituel</a></li>
+        <li><a href="#services">Hammam Arroussa</a></li>
+        <li><a href="#services">Soins & Épilation</a></li>
+        <li><a href="#services">Massage & Détente</a></li>
+        <li><a href="#services">Pack Mère-Fille</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Liens Utiles</h4>
+      <ul>
+        <li><a href="#story">Notre Histoire</a></li>
+        <li><a href="#gallery">Galerie</a></li>
+        <li><a href="#testimonials">Avis Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Avenue Des Jasmins</a></li>
+        <li><a href="#">Jardin d'El Menzah 2</a></li>
+        <li><a href="#">2094 Ariana, Tunisie</a></li>
+        <li><a href="tel:+21623212515">+216 23 212 515</a></li>
+        <li><a href="mailto:anais.beauty.spa@gmail.com">anais.beauty.spa@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Anaïs Beauty & Spa. Tous droits réservés.</p>
+    <p>Conçu avec élégance à Ariana, Tunisie ✦</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<a class="fab-wa" href="https://wa.me/21623212515?text=Bonjour%20Ana%C3%AFs%20Beauty%20%26%20Spa%20%F0%9F%8C%B8%0AJe%20souhaite%20prendre%20un%20rendez-vous." target="_blank" id="fabWa">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.482.676 4.805 1.854 6.8L2 30l7.4-1.824A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2z" fill="#fff"/><path d="M22.5 19.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01s-.52.07-.79.37c-.27.3-1.03 1.01-1.03 2.46 0 1.45 1.05 2.85 1.2 3.05.15.2 2.07 3.16 5.01 4.43.7.3 1.25.48 1.67.61.7.22 1.34.19 1.84.11.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.19-.57-.34z" fill="#25D366"/></svg>
+</a>
+
+<script>
+// ===== CONFETTI (inline minimal) =====
+function fireConfetti(x,y){
+  const colors=['#C4956A','#B8962E','#7B2D3A','#E8D5B7','#D4A574'];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');
+    el.style.cssText='position:fixed;z-index:99999;width:6px;height:6px;border-radius:50%;pointer-events:none;';
+    el.style.left=(x||window.innerWidth/2)+'px';
+    el.style.top=(y||window.innerHeight/2)+'px';
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(el);
+    const angle=Math.random()*Math.PI*2;
+    const velocity=3+Math.random()*8;
+    const vx=Math.cos(angle)*velocity;
+    const vy=Math.sin(angle)*velocity-4;
+    let px=0,py=0,life=1;
+    const anim=()=>{
+      px+=vx;py+=vy+2;life-=0.015;
+      el.style.transform='translate('+px+'px,'+py+'px) scale('+life+')';
+      el.style.opacity=life;
+      if(life>0)requestAnimationFrame(anim);else el.remove();
+    };
+    requestAnimationFrame(anim);
+  }
+}
+
+// ===== VIDEOS =====
+(function(){
+  const hv=document.getElementById('heroVideo');
+  if(hv){hv.src='https://res.cloudinary.com/dlllcg1cm/video/upload/%D8%AD%D9%85%D8%A7%D9%85_%D8%B9%D8%B1%D9%88%D8%B3%D8%AA%D9%86%D8%A7_hammamaroussa_traditiontunisienne_hammamtraditionnel_tradition_hammamtunisien_i6tsmd.mp4';hv.load();}
+  const sv=document.getElementById('storyVid');
+  if(sv){sv.src='https://res.cloudinary.com/dlllcg1cm/video/upload/story-video_ymi9io.mp4';sv.load();}
+  const hav=document.getElementById('hammamVid');
+  if(hav){hav.src='https://res.cloudinary.com/dlllcg1cm/video/upload/Le_rituel_hammam_que_votre_corps_m%C3%A9rite_Chaleur_intense_soins_naturels_et_relaxation_profonde_wkobr8.mp4';hav.load();}
+})();
+
+// ===== LOADER TEXT ANIMATION =====
+(function(){
+  const name='ANAÏS';
+  const container=document.getElementById('loaderName');
+  container.innerHTML=name.split('').map((c,i)=>'<span style="animation-delay:'+(0.5+i*0.12)+'s">'+c+'</span>').join('');
+})();
+
+// ===== CURSOR + TRAIL =====
+const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+const trailContainer=document.getElementById('cursor-trail');
+let mx=0,my=0,rx=0,ry=0;
+const trailDots=[];
+const maxTrail=12;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+// Trail
+setInterval(()=>{
+  if(trailDots.length>=maxTrail){const old=trailDots.shift();old.remove();}
+  const dot=document.createElement('div');dot.className='trail-dot';dot.style.left=mx+'px';dot.style.top=my+'px';trailContainer.appendChild(dot);trailDots.push(dot);
+  setTimeout(()=>{dot.style.opacity='0';dot.style.transform='translate(-50%,-50%) scale(0)';setTimeout(()=>dot.remove(),300);},200);
+},30);
+document.querySelectorAll('a,button,.svc-card,.gallery-nav-btn,.gallery-thumb,.gallery-dot,.social-btn,.wa-btn,.wa-alt-btn,.contact-detail-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+// ===== SCROLL PROGRESS =====
+const scrollProg=document.getElementById('scroll-progress');
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+  scrollProg.style.transform='scaleX('+p+')';
+});
+
+// ===== DUST PARTICLES =====
+(function(){
+  const canvas=document.getElementById('dust-canvas');
+  const ctx=canvas.getContext('2d');
+  let w,h;
+  const particles=[];
+  const colors=['rgba(196,149,106,','rgba(184,150,46,','rgba(196,149,106,'];
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<50;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,
+      size:Math.random()*2.5+0.5,
+      speedY:-(Math.random()*0.4+0.1),
+      speedX:(Math.random()-0.5)*0.3,
+      opacity:Math.random()*0.4+0.1,
+      color:colors[Math.floor(Math.random()*colors.length)]
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{
+      p.y+=p.speedY;p.x+=p.speedX;
+      p.opacity+=Math.sin(Date.now()*0.001+p.x)*0.003;
+      if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}
+      if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fillStyle=p.color+Math.max(0.05,Math.min(0.5,p.opacity))+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== NAV =====
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('solid',scrollY>60));
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>{navLinks.classList.toggle('open');menuBtn.classList.toggle('open');});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.classList.remove('open');}));
+
+// ===== REVEAL ON SCROLL =====
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+// ===== ANIMATED COUNTERS =====
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const target=parseInt(el.dataset.count);
+      let current=0;
+      const dur=2000;
+      const start=Date.now();
+      const tick=()=>{
+        const elapsed=Date.now()-start;
+        const progress=Math.min(elapsed/dur,1);
+        const ease=1-Math.pow(1-progress,4);
+        current=Math.floor(ease*target);
+        el.textContent=current+(target>=10&&target<100?'K+':'+');
+        if(progress<1)requestAnimationFrame(tick);
+      };
+      tick();
+      counterObs.unobserve(el);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>counterObs.observe(el));
+
+// ===== LOADER =====
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),2400));
+
+// ===== TOAST =====
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
+
+// ===== RIPPLE ON BUTTONS =====
+document.querySelectorAll('.btn-primary,.btn-ghost,.nav-rdv-btn,.wa-btn,.gallery-nav-btn,.social-btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const r=document.createElement('span');r.className='ripple';
+    const rect=this.getBoundingClientRect();
+    r.style.left=(e.clientX-rect.left)+'px';
+    r.style.top=(e.clientY-rect.top)+'px';
+    r.style.width=r.style.height=Math.max(rect.width,rect.height)+'px';
+    this.appendChild(r);setTimeout(()=>r.remove(),700);
+  });
+});
+
+// ===== CONFETTI ON WHATSAPP =====
+document.getElementById('waMainBtn').addEventListener('click',function(e){const rect=this.getBoundingClientRect();fireConfetti(rect.left+rect.width/2,rect.top+rect.height/2);});
+document.getElementById('fabWa').addEventListener('click',function(e){const rect=this.getBoundingClientRect();fireConfetti(rect.left+rect.width/2,rect.top+rect.height/2);});
+
+// ===== 3D TILT ON SERVICE CARDS =====
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-0.5;
+    const y=(e.clientY-rect.top)/rect.height-0.5;
+    card.style.transform='perspective(800px) rotateY('+x*12+'deg) rotateX('+(-y*12)+'deg) scale(1.02)';
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='perspective(800px) rotateY(0) rotateX(0) scale(1)';});
+});
+
+// ===== MAGNETIC BUTTONS =====
+document.querySelectorAll('.btn-primary,.btn-ghost,.wa-btn,.nav-rdv-btn').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const rect=btn.getBoundingClientRect();
+    const x=(e.clientX-rect.left-rect.width/2)*0.2;
+    const y=(e.clientY-rect.top-rect.height/2)*0.2;
+    btn.style.transform='translate('+x+'px,'+y+'px)';
+  });
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';});
+});
+
+// ===== PARALLAX HERO =====
+window.addEventListener('scroll',()=>{
+  const scrolled=window.scrollY;
+  const hero=document.querySelector('.hero');
+  if(hero&&scrolled<window.innerHeight){
+    const vid=hero.querySelector('.hero-video');
+    const bg=hero.querySelector('.hero-bg');
+    if(vid)vid.style.transform='translateY('+scrolled*0.3+'px)';
+    if(bg)bg.style.transform='translateY('+scrolled*0.15+'px)';
+  }
+});
+
+// ===================================================
+// 3D GALLERY — Scroll Triggered
+// ===================================================
+(function(){
+  const cards=Array.from(document.querySelectorAll('.g-card'));
+  const total=cards.length;
+  let current=0;
+  let isAnimating=false;
+  let autoTimer=null;
+  let hasStarted=false;
+  let isInView=false;
+
+  const dotsContainer=document.getElementById('galleryDots');
+  cards.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='gallery-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    dotsContainer.appendChild(d);
+  });
+
+  const thumbsContainer=document.getElementById('galleryThumbs');
+  cards.forEach((card,i)=>{
+    const img=card.querySelector('img');
+    const th=document.createElement('div');
+    th.className='gallery-thumb'+(i===0?' active':'');
+    const ti=document.createElement('img');
+    ti.src=img.src;ti.alt=img.alt;
+    th.appendChild(ti);
+    th.addEventListener('click',()=>goTo(i));
+    thumbsContainer.appendChild(th);
+  });
+
+  const currentNum=document.getElementById('galleryCurrentNum');
+  const totalNum=document.getElementById('galleryTotalNum');
+  const progressFill=document.getElementById('galleryProgress');
+  totalNum.textContent=total.toString().padStart(2,'0');
+  function pad(n){return n.toString().padStart(2,'0');}
+
+  function getCardStyle(offset){
+    if(offset===0){
+      return {
+        transform:'translateX(-50%) translateY(-50%) translateZ(0px) rotateY(0deg)',
+        zIndex:10,opacity:1,filter:'brightness(1) blur(0px)'
+      };
+    }
+    const side=offset>0?1:-1;
+    const dist=Math.min(Math.abs(offset),3);
+    const tx=side*(260+(dist-1)*60);
+    const tz=-(dist*120);
+    const ry=side*(dist*18);
+    const op=Math.max(0,1-dist*0.28);
+    const sc=Math.max(0.6,1-dist*0.12);
+    const br=Math.min(dist*0.15,0.4);
+    return {
+      transform:'translateX(calc(-50% + '+tx+'px)) translateY(-50%) translateZ('+tz+'px) rotateY('+ry+'deg) scale('+sc+')',
+      zIndex:Math.max(1,8-dist),
+      opacity:Math.abs(offset)>4?0:op,
+      filter:'brightness('+(1-br)+') blur('+Math.max(0,(dist-1)*1.5)+'px)'
+    };
+  }
+
+  function updateCarousel(instant){
+    const dots=dotsContainer.querySelectorAll('.gallery-dot');
+    const thumbs=thumbsContainer.querySelectorAll('.gallery-thumb');
+    cards.forEach((card,i)=>{
+      let offset=i-current;
+      if(offset>total/2)offset-=total;
+      if(offset<-total/2)offset+=total;
+      const s=getCardStyle(offset);
+      card.style.transition=instant?'none':'all 0.85s cubic-bezier(.25,.46,.45,.94)';
+      card.style.transform=s.transform;
+      card.style.zIndex=s.zIndex;
+      card.style.opacity=s.opacity;
+      card.style.filter=s.filter||'';
+      card.classList.toggle('is-active',offset===0);
+    });
+    dots.forEach((d,i)=>d.classList.toggle('active',i===current));
+    thumbs.forEach((t,i)=>t.classList.toggle('active',i===current));
+    currentNum.textContent=pad(current+1);
+    progressFill.style.height=((current+1)/total*100)+'%';
+  }
+
+  function goTo(index,instant){
+    if(isAnimating&&!instant)return;
+    isAnimating=true;
+    current=((index%total)+total)%total;
+    updateCarousel(instant);
+    setTimeout(()=>isAnimating=false,900);
+    resetAutoPlay();
+  }
+  function next(){goTo(current+1);}
+  function prev(){goTo(current-1);}
+
+  function resetAutoPlay(){
+    clearInterval(autoTimer);
+    if(isInView){autoTimer=setInterval(()=>{if(isInView)next();},4500);}
+  }
+
+  const gallerySection=document.getElementById('gallery');
+  const sectionObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        isInView=true;
+        if(!hasStarted){
+          hasStarted=true;
+          updateCarousel(true);
+          setTimeout(()=>{goTo(0,false);resetAutoPlay();},350);
+        }else{resetAutoPlay();}
+      }else{
+        isInView=false;
+        clearInterval(autoTimer);
+      }
+    });
+  },{threshold:0.20});
+  sectionObserver.observe(gallerySection);
+
+  document.getElementById('galleryNext').addEventListener('click',next);
+  document.getElementById('galleryPrev').addEventListener('click',prev);
+
+  document.addEventListener('keydown',e=>{
+    if(!isInView)return;
+    if(e.key==='ArrowRight')next();
+    if(e.key==='ArrowLeft')prev();
+  });
+
+  let touchStartX=0;
+  const scene=document.getElementById('galleryScene');
+  scene.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+  scene.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-touchStartX;
+    if(Math.abs(dx)>50){dx<0?next():prev();}
+  });
+
+  let mouseStartX=0;
+  let isDragging=false;
+  scene.addEventListener('mousedown',e=>{mouseStartX=e.clientX;isDragging=true;});
+  scene.addEventListener('mouseup',e=>{
+    if(!isDragging)return;
+    const dx=e.clientX-mouseStartX;
+    if(Math.abs(dx)>60){dx<0?next():prev();}
+    isDragging=false;
+  });
+  scene.addEventListener('mouseleave',()=>isDragging=false);
+
+  scene.addEventListener('mouseenter',()=>{
+    document.body.classList.add('hovering');
+    clearInterval(autoTimer);
+  });
+  scene.addEventListener('mouseleave',()=>{
+    document.body.classList.remove('hovering');
+    if(isInView)resetAutoPlay();
+  });
+
+  cards.forEach(c=>{c.style.opacity='0';c.style.transition='none';});
+})();
+</script>
+</body>
+</html>
